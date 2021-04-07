@@ -8,17 +8,17 @@ export const DEFAULT_FEMALE = {};
 export const BODY_PARTS_FEMALE = [
     { title: 'Arms', name: 'armf-cls', gender: 'female' },
     { title: 'Body', name: 'bodyf-cls', gender: 'female' },
-    { title: 'Hat', name: 'hatf-cls', gender: 'female' },
     { title: 'Tshirt', name: 'tshirf-cls', gender: 'female' },
     { title: 'Leg', name: 'pantsf-cls', gender: 'female' },
+    { title: 'Hat', name: 'hatf-cls', gender: 'female' },
 ];
 
 export const BODY_PARTS_MALE = [
     { title: 'Arms', name: 'arms-cls', gender: 'male' },
     { title: 'Body', name: 'bodym-cls', gender: 'male' },
-    { title: 'Hat', name: 'hatm-cls', gender: 'male' },
-    { title: 'Tshirt', name: 'tshirtm-cls', gender: 'male' },
     { title: 'Leg', name: 'legm-cls', gender: 'male' },
+    { title: 'Tshirt', name: 'tshirtm-cls', gender: 'male' },
+    { title: 'Hat', name: 'hatm-cls', gender: 'male' },
 ];
 
 BODY_PARTS_FEMALE.forEach(k => {
