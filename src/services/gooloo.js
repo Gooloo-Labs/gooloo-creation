@@ -1,7 +1,23 @@
 import * as d3 from 'd3';
 import anime from 'animejs';
+import { HATS_SHADOW } from '../config';
 
+// in case hat has a shadow get the shadowed parts
+const getShadowedHat = (parts) => {
+    const hat = parts.find(k => k.type.indexOf('hat') !== -1);
+    const shadowedHat = HATS_SHADOW.find(k => hat.url.indexOf(k.name) !== -1);
+    if(shadowedHat) {
+        parts = parts.filter(k => k.type.indexOf('hat') === -1);
+        parts.splice(0, 0, { url: `/hat_shadow/${shadowedHat.shadow}.svg`, type: hat.type });
+        parts.splice(parts.length, 0, { url: `/hat_shadow/${shadowedHat.main}.svg`, type: hat.type });
+    }
+    return parts;
+};
+
+// load the gooloo images
 export const loadGooloo = (parts, element) => {
+    parts = getShadowedHat(parts);
+
     const promises = parts.map(k => d3.xml(k.url));
 
     Promise.all(promises)
@@ -20,6 +36,7 @@ export const loadGooloo = (parts, element) => {
     });
 };
 
+// add items to form new gooloo svg
 export const addSvgItems = (group, item, type) => {
     const elem = group
         .append('g')
@@ -31,6 +48,7 @@ export const addSvgItems = (group, item, type) => {
     });
 };
 
+// animate the gooloo
 export const createAnimation = (element) => {
     anime({
         // targets: `#${id} .gooloo`,
