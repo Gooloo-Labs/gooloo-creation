@@ -1,24 +1,75 @@
-import * as d3 from 'd3';
+import {
+    EYES_MALE,
+    EYES_FEMALE,
 
-export const TYPES = d3.range(1100, 11100, 1000);
-export const HAT_TYPES = d3.range(1100, 31100, 1000);
+    COMMON_BODY_FEMALE,
+    COMMON_SHIRT_FEMALE,
+    COMMON_PANTS_FEMALE,
+    COMMON_HAT_FEMALE,
+
+    COMMON_BODY_MALE,
+    COMMON_SHIRT_MALE,
+    COMMON_PANTS_MALE,
+    COMMON_HAT_MALE,
+
+    RARE_BODY_FEMALE,
+    RARE_BODY_MALE,
+    RARE_HAT_FEMALE,
+    RARE_HAT_MALE,
+    RARE_ONESIE_FEMALE,
+    RARE_ONESIE_MALE,
+
+    SUPER_RARE_BG_FEMALE,
+    SUPER_RARE_BG_MALE,
+    SUPER_RARE_BODY_FEMALE,
+    SUPER_RARE_BODY_MALE,
+    SUPER_RARE_ONESIE_FEMALE,
+    SUPER_RARE_ONESIE_MALE
+} from './assets';
+
 export const DEFAULT_MALE = {};
 export const DEFAULT_FEMALE = {};
+export const RARE_DEFAULT_MALE = {};
+export const RARE_DEFAULT_FEMALE = {};
+export const SUPER_RARE_DEFAULT_MALE = {};
+export const SUPER_RARE_DEFAULT_FEMALE = {};
 
 export const BODY_PARTS_FEMALE = [
-    { title: 'Arms', name: 'armf-cls', gender: 'female' },
-    { title: 'Body', name: 'bodyf-cls', gender: 'female' },
-    { title: 'Tshirt', name: 'tshirf-cls', gender: 'female' },
-    { title: 'Leg', name: 'pantsf-cls', gender: 'female' },
-    { title: 'Hat', name: 'hatf-cls', gender: 'female' },
+    { title: 'Body', name: 'bodyf', gender: 'female', assets: COMMON_BODY_FEMALE },
+    { title: 'Shirt', name: 'shirtf', gender: 'female', assets: COMMON_SHIRT_FEMALE },
+    { title: 'Pants', name: 'pantsf', gender: 'female', assets: COMMON_PANTS_FEMALE },
+    { title: 'Hat', name: 'hatf', gender: 'female', assets: COMMON_HAT_FEMALE },
 ];
 
 export const BODY_PARTS_MALE = [
-    { title: 'Arms', name: 'arms-cls', gender: 'male' },
-    { title: 'Body', name: 'bodym-cls', gender: 'male' },
-    { title: 'Leg', name: 'legm-cls', gender: 'male' },
-    { title: 'Tshirt', name: 'tshirtm-cls', gender: 'male' },
-    { title: 'Hat', name: 'hatm-cls', gender: 'male' },
+    { title: 'Body', name: 'bodyf', gender: 'male', assets: COMMON_BODY_MALE },
+    { title: 'Shirt', name: 'shirtf', gender: 'male', assets: COMMON_SHIRT_MALE },
+    { title: 'Pants', name: 'pantsf', gender: 'male', assets: COMMON_PANTS_MALE },
+    { title: 'Hat', name: 'hatf', gender: 'male', assets: COMMON_HAT_MALE },
+];
+
+export const RARE_BODY_PARTS_FEMALE = [
+    { title: 'Body', name: 'bodyf', gender: 'female', assets: RARE_BODY_FEMALE },
+    { title: 'OneSie', name: 'onesief', gender: 'female', assets: RARE_ONESIE_FEMALE },
+    { title: 'Hat', name: 'hatf', gender: 'female', assets: RARE_HAT_FEMALE },
+];
+
+export const RARE_BODY_PARTS_MALE = [
+    { title: 'Body', name: 'bodyf', gender: 'male', assets: RARE_BODY_MALE },
+    { title: 'OneSie', name: 'onesiem', gender: 'male', assets: RARE_ONESIE_MALE },
+    { title: 'Hat', name: 'hatf', gender: 'male', assets: RARE_HAT_MALE },
+];
+
+export const SUPER_RARE_BODY_PARTS_FEMALE = [
+    { title: 'Background', name: 'bgf', gender: 'female', assets: SUPER_RARE_BG_FEMALE },
+    { title: 'Body', name: 'bodyf', gender: 'female', assets: SUPER_RARE_BODY_FEMALE },
+    { title: 'OneSie', name: 'onesief', gender: 'female', assets: SUPER_RARE_ONESIE_FEMALE },
+];
+
+export const SUPER_RARE_BODY_PARTS_MALE = [
+    { title: 'Background', name: 'bgm', gender: 'male', assets: SUPER_RARE_BG_MALE },
+    { title: 'Body', name: 'bodyf', gender: 'male', assets: SUPER_RARE_BODY_MALE },
+    { title: 'OneSie', name: 'onesiem', gender: 'male', assets: SUPER_RARE_ONESIE_MALE },
 ];
 
 export const HATS_SHADOW = [
@@ -50,9 +101,54 @@ export const HATS_SHADOW = [
 ]
 
 BODY_PARTS_FEMALE.forEach(k => {
-    DEFAULT_FEMALE[k.name] = `/assets/${k.name}-${TYPES[0]}.svg`;
+    DEFAULT_FEMALE[k.name] = `/assets/${k.assets[0]}`;
 });
 
 BODY_PARTS_MALE.forEach(k => {
-    DEFAULT_MALE[k.name] = `/assets/${k.name}-${TYPES[0]}.svg`;
+    DEFAULT_MALE[k.name] = `/assets/${k.assets[0]}`;
 });
+
+RARE_BODY_PARTS_FEMALE.forEach(k => {
+    RARE_DEFAULT_FEMALE[k.name] = `/assets/${k.assets[0]}`;
+});
+
+RARE_BODY_PARTS_MALE.forEach(k => {
+    RARE_DEFAULT_MALE[k.name] = `/assets/${k.assets[0]}`;
+});
+
+SUPER_RARE_BODY_PARTS_FEMALE.forEach(k => {
+    SUPER_RARE_DEFAULT_FEMALE[k.name] = `/assets/${k.assets[0]}`;
+});
+
+SUPER_RARE_BODY_PARTS_MALE.forEach(k => {
+    SUPER_RARE_DEFAULT_MALE[k.name] = `/assets/${k.assets[0]}`;
+});
+
+export const TYPES = [
+    {
+        title: 'Common',
+        value: 'common',
+        defaultMale: DEFAULT_MALE,
+        defaultFemale: DEFAULT_FEMALE,
+        bodyPartMale: BODY_PARTS_MALE,
+        bodyPartFemale: BODY_PARTS_FEMALE
+    },
+    {
+        title: 'Rare',
+        value: 'rare',
+        defaultMale: RARE_DEFAULT_MALE,
+        defaultFemale: RARE_DEFAULT_FEMALE,
+        bodyPartMale: RARE_BODY_PARTS_MALE,
+        bodyPartFemale: RARE_BODY_PARTS_FEMALE
+    },
+    {
+        title: 'Super Rare',
+        value: 'super_rare',
+        defaultMale: SUPER_RARE_DEFAULT_MALE,
+        defaultFemale: SUPER_RARE_DEFAULT_FEMALE,
+        bodyPartMale: SUPER_RARE_BODY_PARTS_MALE,
+        bodyPartFemale: SUPER_RARE_BODY_PARTS_FEMALE
+    },
+];
+
+export const DEFAULT_TYPE = TYPES[0];

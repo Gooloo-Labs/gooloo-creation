@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
 
-import {
-    TYPES,
-    HAT_TYPES,
-    DEFAULT_MALE,
-    DEFAULT_FEMALE,
-    BODY_PARTS_FEMALE,
-    BODY_PARTS_MALE
-} from '../config';
+import { TYPES, DEFAULT_TYPE } from '../config';
 
 import './Navbar.css';
 
+// title of gooloo dropdowns showing what is selected
 const navTitle = (d, selected) => {
     return <div>
         <img className="dropdown-img img-thumbnail" src={selected[d.name]} alt={d.name} />
@@ -19,6 +13,7 @@ const navTitle = (d, selected) => {
     </div>;
 };
 
+// create the gooloo body parts dropdowns
 const createDropdowns = (selected, setSelected, bodyParts) => {
     const onClick = (d, url) => {
         const temp = {};
@@ -31,10 +26,10 @@ const createDropdowns = (selected, setSelected, bodyParts) => {
     };
 
     return bodyParts.map((d, di) => {
-        const types = d.name.indexOf('hat') !== -1 ? HAT_TYPES : TYPES;
+        // const types = d.name.indexOf('hat') !== -1 ? HAT_TYPES : TYPES;
         return <NavDropdown title={navTitle(d, selected)} key={di}>
-            {types.map((k, ki) => {
-                const url = `/assets/${d.name}-${k}.svg`;
+            {d.assets.map((k, ki) => {
+                const url = `/assets/${k}`;
                 return <NavDropdown.Item key={ki} onClick={() => onClick(d, url)} active={selected[d.name] === url}>
                     <img className="dropdown-img img-thumbnail" src={url} alt={d.name} />
                     <span>{`${d.title} ${k}`}</span>
@@ -44,25 +39,69 @@ const createDropdowns = (selected, setSelected, bodyParts) => {
     });
 };
 
+// MAIN NAVBAR COMPONENT
 const NavbarComponent = (props) => {
-    const [selectedMale, setSelectedMale] = useState(DEFAULT_MALE);
-    const [selectedFemale, setSelectedFemale] = useState(DEFAULT_FEMALE);
+    const [selectedMale, setSelectedMale] = useState(DEFAULT_TYPE.defaultMale);
+    const [selectedFemale, setSelectedFemale] = useState(DEFAULT_TYPE.defaultFemale);
+    const [type, setType] = useState(DEFAULT_TYPE.value);
 
     useEffect(() => {
         props.getGooloo(selectedMale, selectedFemale);
     }, [props, selectedMale, selectedFemale]);
+
+    // gooloo body parts dropdowns
+    const goolooNavs = () => {
+        const goolooType = TYPES.find(k => k.value === type);
+        const obj = [
+            { parts: goolooType.bodyPartMale, state: selectedMale, setState: setSelectedMale },
+            { parts: goolooType.bodyPartFemale, state: selectedFemale, setState: setSelectedFemale },
+        ];
+
+        return obj.map((k, i) => {
+            return <Nav className="mr-auto nav-left" key={i}>
+                {createDropdowns(k.state, k.setState, k.parts)}
+            </Nav>
+        });
+    };
+
+    // **** Type Dropdown ****
+
+    // dropdown title of type selected 
+    const typeTitle = () => {
+        return TYPES.find(k => k.value === type).title;
+    };
+
+    // on click to change type
+    const onClickType = (value) => {
+        const goolooType = TYPES.find(k => k.value === value);
+        setType(value);
+        setSelectedMale(goolooType.defaultMale);
+        setSelectedFemale(goolooType.defaultFemale);
+    };
+
+    // type dropdowns of gooloo types
+    const typeDropdown = () => {
+        const types = TYPES.map((k, i) => {
+            return <NavDropdown.Item key={i} onClick={() => onClickType(k.value)} active={type === k.value}>
+                <span>{k.title}</span>
+            </NavDropdown.Item>;
+        });
+        return <Nav className="mr-auto nav-left">
+            <NavDropdown title={typeTitle()}>
+                {types}
+            </NavDropdown>
+        </Nav>;
+    };
 
     return (
         <Navbar bg="light" expand="lg">
             <Navbar.Brand href="#home">Gooloos</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto nav-left">
-                {createDropdowns(selectedMale, setSelectedMale, BODY_PARTS_MALE)}
-                </Nav>
-                <Nav className="mr-auto nav-right">
-                {createDropdowns(selectedFemale, setSelectedFemale, BODY_PARTS_FEMALE)}
-                </Nav>
+
+               {typeDropdown()} 
+
+               {goolooNavs()}
             </Navbar.Collapse>
         </Navbar>
     )

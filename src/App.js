@@ -5,7 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useRef, useEffect, useState } from 'react';
 import { loadGooloo } from './services/gooloo';
 
-const displayGooloo = (data, element) => {
+const displayGooloo = (data, element, type) => {
     if(data) {
       const keys = Object.keys(data);
       const result = keys.map(k => ({
@@ -13,7 +13,7 @@ const displayGooloo = (data, element) => {
           type: k
       }));
 
-      loadGooloo(result, element);
+      loadGooloo(result, element, type);
     }
 };
 
@@ -29,8 +29,8 @@ const App = () => {
   };
 
   useEffect(() => {
-    displayGooloo(selectedMale, maleGooloo.current);
-    displayGooloo(selectedFemale, femaleGooloo.current);
+    displayGooloo(selectedMale, maleGooloo.current, 'male');
+    displayGooloo(selectedFemale, femaleGooloo.current, 'female');
   }, [selectedMale, selectedFemale]);
 
   return (
