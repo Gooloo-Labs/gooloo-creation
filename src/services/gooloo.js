@@ -7,7 +7,10 @@ import {
 import {
     EYES_MALE,
     EYES_FEMALE,
-} from '../assets'
+} from '../assets';
+
+let eyeInterval;
+let interval;
 
 // in case hat has a shadow get the shadowed parts
 const getShadowedHat = (parts) => {
@@ -24,7 +27,6 @@ const getShadowedHat = (parts) => {
 };
 
 const addEyes = (type, parts) => {
-    console.log('@@@@', type)
     if(type === 'male') {
         EYES_MALE.forEach(k => {
             parts.push({
@@ -50,6 +52,9 @@ export const loadGooloo = (parts, element, type) => {
 
     const promises = parts.map(k => d3.xml(k.url));
 
+    if(eyeInterval) clearInterval(eyeInterval);
+    if(interval) clearInterval(interval);
+
     Promise.all(promises)
     .then(data => {
         d3.select(element).selectAll("*").remove();
@@ -68,13 +73,15 @@ export const loadGooloo = (parts, element, type) => {
                 addSvg(groupBg, item.documentElement, parts[index].type);
             } else {
                 // if background add the whole image as svg
+                // if(['eye_closed', 'eye_open'].indexOf(parts[index].type) !== -1)
                 addSvgItems(group, item.documentElement, parts[index].type);
             }
         });
 
+        createAnimation(element, group);
+        // interval = createBodyAnimation(element, group);
+        eyeInterval = createEyeAnimation(element, group);
 
-
-        createAnimation(element);
     });
 };
 
@@ -87,7 +94,7 @@ export const addSvgItems = (group, item, type) => {
     const elem = group
         .append('g')
         .attr('class', type)
-        .classed('hidden', type === 'eye_closed')
+        // .classed('hidden', type === 'eye_closed')
         .classed('eye', ['eye_closed', 'eye_open'].indexOf(type) !== -1)
         .node();
 
@@ -96,8 +103,48 @@ export const addSvgItems = (group, item, type) => {
     });
 };
 
-// animate the gooloo
-export const createAnimation = (element) => {
+// animate gooloo eyes
+export const createEyeAnimation = (element, group) => {
+    const duration = 750;
+    const anim = () => {
+        const t = d3.transition()
+            .delay(duration)
+            .ease(d3.easeLinear);
+
+        group.select('.eye_open')
+            .style('opacity', 1)
+            .transition(t)
+            .style('opacity', 0);
+    };
+
+    const interval = setInterval(anim, duration * 2);
+    anim();
+    return interval;
+};
+
+// animate the gooloo using d3
+export const createBodyAnimation = (element, group) => {
+    const duration = 1000;
+    const anim = () => {
+        const t = d3.transition()
+            .duration(duration)
+            .ease(d3.easeLinear);
+
+        d3.select(element).select('.gooloo')
+            .attr('transform', 'scale(4) translate(-12, -38)')
+            .transition(t)
+            .attr('transform', 'scale(4) translate(-12, -42)')
+            .transition(t)
+            .attr('transform', 'scale(4) translate(-12, -38)');
+    };
+
+    const interval = setInterval(anim, duration * 2);
+    anim();
+    return interval;
+};
+
+// animate the gooloo using animejs
+export const createAnimation = (element, group) => {
     anime({
         // targets: `#${id} .gooloo`,
         targets: d3.select(element).select('.gooloo').node(),
