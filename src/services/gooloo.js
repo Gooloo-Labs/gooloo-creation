@@ -72,6 +72,7 @@ export const loadGooloo = (parts, element, type) => {
             } else {
                 // if background add the whole image as svg
                 // if(['eye_closed', 'eye_open'].indexOf(parts[index].type) !== -1)
+                // if(['pantsm'].indexOf(parts[index].type) !== -1)
                 addSvgItems(group, item.documentElement, parts[index].type);
             }
         });

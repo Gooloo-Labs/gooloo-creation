@@ -39,10 +39,10 @@ export const BODY_PARTS_FEMALE = [
 ];
 
 export const BODY_PARTS_MALE = [
-    { title: 'Body', name: 'bodyf', gender: 'male', assets: COMMON_BODY_MALE },
-    { title: 'Shirt', name: 'shirtf', gender: 'male', assets: COMMON_SHIRT_MALE },
-    { title: 'Pants', name: 'pantsf', gender: 'male', assets: COMMON_PANTS_MALE },
-    { title: 'Hat', name: 'hatf', gender: 'male', assets: COMMON_HAT_MALE },
+    { title: 'Body', name: 'bodym', gender: 'male', assets: COMMON_BODY_MALE },
+    { title: 'Pants', name: 'pantsm', gender: 'male', assets: COMMON_PANTS_MALE },
+    { title: 'Shirt', name: 'shirtm', gender: 'male', assets: COMMON_SHIRT_MALE },
+    { title: 'Hat', name: 'hatm', gender: 'male', assets: COMMON_HAT_MALE },
 ];
 
 export const RARE_BODY_PARTS_FEMALE = [
@@ -52,9 +52,9 @@ export const RARE_BODY_PARTS_FEMALE = [
 ];
 
 export const RARE_BODY_PARTS_MALE = [
-    { title: 'Body', name: 'bodyf', gender: 'male', assets: RARE_BODY_MALE },
+    { title: 'Body', name: 'bodym', gender: 'male', assets: RARE_BODY_MALE },
     { title: 'OneSie', name: 'onesiem', gender: 'male', assets: RARE_ONESIE_MALE },
-    { title: 'Hat', name: 'hatf', gender: 'male', assets: RARE_HAT_MALE },
+    { title: 'Hat', name: 'hatm', gender: 'male', assets: RARE_HAT_MALE },
 ];
 
 export const SUPER_RARE_BODY_PARTS_FEMALE = [
@@ -65,7 +65,7 @@ export const SUPER_RARE_BODY_PARTS_FEMALE = [
 
 export const SUPER_RARE_BODY_PARTS_MALE = [
     { title: 'Background', name: 'bgm', gender: 'male', assets: SUPER_RARE_BG_MALE },
-    { title: 'Body', name: 'bodyf', gender: 'male', assets: SUPER_RARE_BODY_MALE },
+    { title: 'Body', name: 'bodym', gender: 'male', assets: SUPER_RARE_BODY_MALE },
     { title: 'OneSie', name: 'onesiem', gender: 'male', assets: SUPER_RARE_ONESIE_MALE },
 ];
 
