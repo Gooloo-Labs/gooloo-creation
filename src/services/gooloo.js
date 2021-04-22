@@ -114,6 +114,12 @@ export const createEyeAnimation = (element, group) => {
             .style('opacity', 1)
             .transition(t)
             .style('opacity', 0);
+
+        group.select('.eye_closed')
+            .style('opacity', 0)
+            .transition(t)
+            .style('opacity', 1);
+
     };
 
     const interval = setInterval(anim, duration * 2);
