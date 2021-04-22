@@ -1,10 +1,8 @@
 import * as d3 from 'd3';
 import anime from 'animejs';
-import {
-    HATS_SHADOW,
-} from '../config';
 
 import {
+    HATS_SHADOW,
     EYES_MALE,
     EYES_FEMALE,
 } from '../assets';
@@ -19,8 +17,8 @@ const getShadowedHat = (parts) => {
         const shadowedHat = HATS_SHADOW.find(k => hat.url.indexOf(k.name) !== -1);
         if(shadowedHat) {
             parts = parts.filter(k => k.type.indexOf('hat') === -1);
-            parts.splice(0, 0, { url: `/hat_shadow/${shadowedHat.shadow}.svg`, type: hat.type });
-            parts.splice(parts.length, 0, { url: `/hat_shadow/${shadowedHat.main}.svg`, type: hat.type });
+            parts.splice(0, 0, { url: `/assets/${shadowedHat.shadow}`, type: hat.type });
+            parts.splice(parts.length, 0, { url: `/assets/${shadowedHat.main}`, type: hat.type });
         }
     }
     return parts;
@@ -30,14 +28,14 @@ const addEyes = (type, parts) => {
     if(type === 'male') {
         EYES_MALE.forEach(k => {
             parts.push({
-                url: `/assets/${k.url}`,
+                url: `/eyeblink/${k.url}`,
                 type: k.type
             });
         })
     } else {
         EYES_FEMALE.forEach(k => {
             parts.push({
-                url: `/assets/${k.url}`,
+                url: `/eyeblink/${k.url}`,
                 type: k.type
             });
         });

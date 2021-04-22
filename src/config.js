@@ -69,34 +69,6 @@ export const SUPER_RARE_BODY_PARTS_MALE = [
     { title: 'OneSie', name: 'onesiem', gender: 'male', assets: SUPER_RARE_ONESIE_MALE },
 ];
 
-export const HATS_SHADOW = [
-    {
-        name: 'hatf-cls-3100',
-        main: 'hatm-cls-95_a100',
-        shadow: 'hatm-cls-95_b100'
-    },
-    {
-        name: 'hatf-cls-8100',
-        main: 'hatm-cls-94_a100',
-        shadow: 'hatm-cls-94_b100'
-    },
-    {
-        name: 'hatm-cls-7100',
-        main: 'hatm-cls-96_a100',
-        shadow: 'hatm-cls-96_b100'
-    },
-    {
-        name: 'hatm-cls-4100',
-        main: 'hatm-cls-97_a100',
-        shadow: 'hatm-cls-97_b100'
-    },
-    {
-        name: 'hatm-cls-1100',
-        main: 'hatm-cls-98_a100',
-        shadow: 'hatm-cls-98_b100'
-    },
-]
-
 BODY_PARTS_FEMALE.forEach(k => {
     DEFAULT_FEMALE[k.name] = `/assets/${k.assets[0]}`;
 });
